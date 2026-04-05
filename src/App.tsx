@@ -17,7 +17,11 @@ function App() {
     'Yellow Border',
     'Fruit Frame',
     'Animal Frame',
-    'Rainbow Frame'
+    'Rainbow Frame',
+    'Floral Frame',
+    'Sparkle Frame',
+    'Polaroid Frame',
+    'Soft Glow Frame'
   ])
   const [selectedFrame, setSelectedFrame] = useState<string>('No Frame')
   const [capturedPhotos, setCapturedPhotos] = useState<string[]>([])
@@ -80,6 +84,79 @@ function App() {
       ctx.strokeStyle = 'white'
       ctx.lineWidth = 10
       ctx.strokeRect(0, 0, w, h)
+    } else if (frame === 'Floral Frame') {
+      ctx.strokeStyle = '#ff8fb3'
+      ctx.lineWidth = 12
+      ctx.strokeRect(0, 0, w, h)
+      const flowers = ['🌸', '🌼', '🌺', '🌷', '🌻']
+      ctx.font = '20px serif'
+      flowers.forEach((flower, index) => {
+        const x = (index + 1) * (w / (flowers.length + 1))
+        ctx.fillText(flower, x, 35)
+        ctx.fillText(flower, x, h - 35)
+      })
+    } else if (frame === 'Sparkle Frame') {
+      ctx.strokeStyle = '#ffffff'
+      ctx.lineWidth = 8
+      ctx.strokeRect(0, 0, w, h)
+      ctx.fillStyle = 'rgba(255,255,255,0.8)'
+      const stars = [
+        { x: 40, y: 40 },
+        { x: w - 40, y: 60 },
+        { x: 60, y: h - 60 },
+        { x: w - 70, y: h - 50 }
+      ]
+      stars.forEach(({ x, y }) => {
+        ctx.beginPath()
+        ctx.moveTo(x, y - 10)
+        ctx.lineTo(x + 6, y)
+        ctx.lineTo(x, y + 10)
+        ctx.lineTo(x - 6, y)
+        ctx.closePath()
+        ctx.fill()
+      })
+    } else if (frame === 'Polaroid Frame') {
+      ctx.fillStyle = '#ffffff'
+      ctx.fillRect(0, 0, w, h)
+      ctx.fillStyle = '#f2f2f2'
+      ctx.fillRect(15, 15, w - 30, h - 65)
+      ctx.fillStyle = '#ffffff'
+      ctx.fillRect(15, h - 50, w - 30, 35)
+      ctx.strokeStyle = '#ccc'
+      ctx.lineWidth = 3
+      ctx.strokeRect(0, 0, w, h)
+      ctx.fillStyle = '#999'
+      ctx.font = '16px sans-serif'
+      ctx.textAlign = 'center'
+      ctx.textBaseline = 'middle'
+      ctx.fillText('Smile!', w / 2, h - 30)
+    } else if (frame === 'Soft Glow Frame') {
+      const gradient = ctx.createLinearGradient(0, 0, w, h)
+      gradient.addColorStop(0, 'rgba(255, 192, 203, 0.4)')
+      gradient.addColorStop(0.5, 'rgba(255, 255, 255, 0.0)')
+      gradient.addColorStop(1, 'rgba(173, 216, 230, 0.4)')
+      ctx.fillStyle = gradient
+      ctx.fillRect(0, 0, w, h)
+      ctx.strokeStyle = '#fff'
+      ctx.lineWidth = 8
+      ctx.strokeRect(10, 10, w - 20, h - 20)
+    }
+  }
+
+  const drawFramePreview = (ctx: CanvasRenderingContext2D, frame: string, w: number, h: number) => {
+    ctx.clearRect(0, 0, w, h)
+    ctx.fillStyle = '#f5f5f5'
+    ctx.fillRect(0, 0, w, h)
+    ctx.save()
+    ctx.strokeStyle = '#888'
+    ctx.lineWidth = 2
+    ctx.strokeRect(0, 0, w, h)
+    ctx.restore()
+
+    if (frame === 'No Frame') {
+      // No additional preview decoration.
+    } else {
+      applyFrame(ctx, frame, w, h)
     }
   }
 
@@ -157,14 +234,7 @@ function App() {
       if (frameCanvas) {
         const ctx = frameCanvas.getContext('2d')
         if (ctx) {
-          ctx.clearRect(0, 0, frameCanvas.width, frameCanvas.height)
-          ctx.fillStyle = 'white'
-          ctx.fillRect(0, 0, frameCanvas.width, frameCanvas.height)
-          ctx.fillStyle = '#ddd'
-          ctx.beginPath()
-          ctx.arc(frameCanvas.width / 2, frameCanvas.height / 2, 20, 0, 2 * Math.PI)
-          ctx.fill()
-          applyFrame(ctx, frame, frameCanvas.width, frameCanvas.height)
+          drawFramePreview(ctx, frame, frameCanvas.width, frameCanvas.height)
         }
       }
     })
