@@ -36,78 +36,101 @@ function App() {
     ctx.font = '28px serif'
 
     if (frame === 'Red Border') {
-      ctx.strokeStyle = 'red'
+      ctx.strokeStyle = '#ff4757'
+      ctx.lineWidth = 16
+      ctx.strokeRect(12, 12, w - 24, h - 24)
+      ctx.strokeStyle = '#ffa502'
+      ctx.lineWidth = 4
+      ctx.strokeRect(24, 24, w - 48, h - 48)
+    } else if (frame === 'Blue Corners') {
+      ctx.strokeStyle = '#1e90ff'
+      ctx.lineWidth = 18
+      const size = 60
+      ctx.beginPath()
+      ctx.moveTo(0, size)
+      ctx.lineTo(0, 0)
+      ctx.lineTo(size, 0)
+      ctx.moveTo(w - size, 0)
+      ctx.lineTo(w, 0)
+      ctx.lineTo(w, size)
+      ctx.moveTo(0, h - size)
+      ctx.lineTo(0, h)
+      ctx.lineTo(size, h)
+      ctx.moveTo(w - size, h)
+      ctx.lineTo(w, h)
+      ctx.lineTo(w, h - size)
+      ctx.stroke()
+    } else if (frame === 'Green Tint') {
+      ctx.fillStyle = 'rgba(0, 200, 0, 0.18)'
+      ctx.fillRect(0, 0, w, h)
+      ctx.strokeStyle = 'rgba(255,255,255,0.8)'
+      ctx.lineWidth = 8
+      ctx.strokeRect(10, 10, w - 20, h - 20)
+    } else if (frame === 'Yellow Border') {
+      ctx.strokeStyle = '#f7b731'
+      ctx.lineWidth = 14
+      ctx.strokeRect(12, 12, w - 24, h - 24)
+      ctx.setLineDash([12, 10])
+      ctx.strokeStyle = '#f6e58d'
+      ctx.lineWidth = 6
+      ctx.strokeRect(24, 24, w - 48, h - 48)
+      ctx.setLineDash([])
+    } else if (frame === 'Fruit Frame') {
+      const fruits = ['🍎', '🍌', '🍓', '🍍', '🥝', '🍇']
+      ctx.font = '26px serif'
+      fruits.forEach((fruit, index) => {
+        const x = 20 + index * ((w - 40) / (fruits.length - 1))
+        ctx.fillText(fruit, x, 38)
+        ctx.fillText(fruit, x, h - 18)
+      })
+      ctx.strokeStyle = '#ff7f50'
       ctx.lineWidth = 10
       ctx.strokeRect(5, 5, w - 10, h - 10)
-    } else if (frame === 'Blue Corners') {
-      ctx.fillStyle = 'blue'
-      ctx.fillRect(0, 0, 50, 50)
-      ctx.fillRect(w - 50, 0, 50, 50)
-      ctx.fillRect(0, h - 50, 50, 50)
-      ctx.fillRect(w - 50, h - 50, 50, 50)
-    } else if (frame === 'Green Tint') {
-      ctx.fillStyle = 'rgba(0, 255, 0, 0.2)'
-      ctx.fillRect(0, 0, w, h)
-    } else if (frame === 'Yellow Border') {
-      ctx.strokeStyle = 'yellow'
-      ctx.lineWidth = 15
-      ctx.strokeRect(0, 0, w, h)
-    } else if (frame === 'Fruit Frame') {
-      ctx.strokeStyle = '#ff7f50'
-      ctx.lineWidth = 12
-      ctx.strokeRect(0, 0, w, h)
-      ctx.fillStyle = 'black'
-      const fruits = ['🍎', '🍌', '🍓', '🍍', '🥝', '🍇']
-      fruits.forEach((fruit, index) => {
-        const x = (index + 1) * (w / (fruits.length + 1))
-        ctx.fillText(fruit, x, 35)
-        ctx.fillText(fruit, x, h - 35)
-      })
     } else if (frame === 'Animal Frame') {
-      ctx.strokeStyle = '#6a5acd'
-      ctx.lineWidth = 12
-      ctx.strokeRect(0, 0, w, h)
-      ctx.fillStyle = 'black'
       const animals = ['🐶', '🐱', '🐰', '🦊', '🐼', '🦁']
+      ctx.font = '26px serif'
       animals.forEach((animal, index) => {
-        const x = (index + 1) * (w / (animals.length + 1))
-        ctx.fillText(animal, x, 35)
-        ctx.fillText(animal, x, h - 35)
+        const x = 20 + index * ((w - 40) / (animals.length - 1))
+        ctx.fillText(animal, x, 38)
+        ctx.fillText(animal, x, h - 18)
       })
+      ctx.strokeStyle = '#6a5acd'
+      ctx.lineWidth = 10
+      ctx.strokeRect(8, 8, w - 16, h - 16)
     } else if (frame === 'Rainbow Frame') {
       const colors = ['#ff3b3f', '#ff7a00', '#ffeb3b', '#2ecc71', '#3abaff', '#9b59b6']
-      const stripeHeight = Math.ceil(h / colors.length)
+      const stripeWidth = Math.ceil(w / colors.length)
       colors.forEach((color, index) => {
-        ctx.fillStyle = color + '80'
-        ctx.fillRect(0, index * stripeHeight, w, stripeHeight)
+        ctx.fillStyle = color + 'b0'
+        ctx.fillRect(index * stripeWidth, 0, stripeWidth, h)
       })
-      ctx.strokeStyle = 'white'
-      ctx.lineWidth = 10
-      ctx.strokeRect(0, 0, w, h)
+      ctx.strokeStyle = '#ffffff'
+      ctx.lineWidth = 14
+      ctx.strokeRect(10, 10, w - 20, h - 20)
     } else if (frame === 'Floral Frame') {
       ctx.strokeStyle = '#ff8fb3'
-      ctx.lineWidth = 12
-      ctx.strokeRect(0, 0, w, h)
+      ctx.lineWidth = 14
+      ctx.strokeRect(8, 8, w - 16, h - 16)
       const flowers = ['🌸', '🌼', '🌺', '🌷', '🌻']
-      ctx.font = '20px serif'
+      ctx.font = '24px serif'
       flowers.forEach((flower, index) => {
-        const x = (index + 1) * (w / (flowers.length + 1))
-        ctx.fillText(flower, x, 35)
-        ctx.fillText(flower, x, h - 35)
+        const x = 25 + index * ((w - 50) / (flowers.length - 1))
+        ctx.fillText(flower, x, 40)
+        ctx.fillText(flower, x, h - 40)
       })
     } else if (frame === 'Sparkle Frame') {
-      ctx.fillStyle = '#ffffff'
+      ctx.fillStyle = 'rgba(255,255,255,0.18)'
       ctx.fillRect(0, 0, w, h)
-      ctx.strokeStyle = '#ffd700'
-      ctx.lineWidth = 6
-      ctx.strokeRect(0, 0, w, h)
+      ctx.strokeStyle = '#f7d794'
+      ctx.lineWidth = 10
+      ctx.strokeRect(15, 15, w - 30, h - 30)
       const stars = [
-        { x: 30, y: 30 },
-        { x: w - 30, y: 50 },
-        { x: 60, y: h - 50 },
-        { x: w - 70, y: h - 40 }
+        { x: 40, y: 35 },
+        { x: w - 40, y: 55 },
+        { x: 65, y: h - 55 },
+        { x: w - 75, y: h - 45 }
       ]
-      ctx.fillStyle = '#ffd700'
+      ctx.fillStyle = '#ffd32a'
       stars.forEach(({ x, y }) => {
         ctx.beginPath()
         ctx.moveTo(x, y - 8)
@@ -118,30 +141,28 @@ function App() {
         ctx.fill()
       })
     } else if (frame === 'Polaroid Frame') {
-      ctx.fillStyle = '#ffffff'
-      ctx.fillRect(0, 0, w, h)
-      ctx.fillStyle = '#f2f2f2'
-      ctx.fillRect(15, 15, w - 30, h - 65)
-      ctx.fillStyle = '#ffffff'
-      ctx.fillRect(15, h - 50, w - 30, 35)
-      ctx.strokeStyle = '#ccc'
+      ctx.strokeStyle = '#ffffff'
+      ctx.lineWidth = 18
+      ctx.strokeRect(10, 10, w - 20, h - 20)
+      ctx.fillStyle = 'rgba(255,255,255,0.72)'
+      ctx.fillRect(10, h - 70, w - 20, 70)
+      ctx.strokeStyle = '#d1d1d1'
       ctx.lineWidth = 3
-      ctx.strokeRect(0, 0, w, h)
-      ctx.fillStyle = '#999'
+      ctx.strokeRect(10, h - 70, w - 20, 70)
+      ctx.fillStyle = '#444'
       ctx.font = '16px sans-serif'
       ctx.textAlign = 'center'
       ctx.textBaseline = 'middle'
-      ctx.fillText('Smile!', w / 2, h - 30)
+      ctx.fillText('Smile!', w / 2, h - 40)
     } else if (frame === 'Soft Glow Frame') {
-      const gradient = ctx.createLinearGradient(0, 0, w, h)
-      gradient.addColorStop(0, 'rgba(255, 192, 203, 0.4)')
-      gradient.addColorStop(0.5, 'rgba(255, 255, 255, 0.0)')
-      gradient.addColorStop(1, 'rgba(173, 216, 230, 0.4)')
+      const gradient = ctx.createRadialGradient(w / 2, h / 2, 20, w / 2, h / 2, Math.max(w, h) / 1.2)
+      gradient.addColorStop(0, 'rgba(255,255,255,0.45)')
+      gradient.addColorStop(1, 'rgba(255,255,255,0)')
       ctx.fillStyle = gradient
       ctx.fillRect(0, 0, w, h)
-      ctx.strokeStyle = '#fff'
-      ctx.lineWidth = 8
-      ctx.strokeRect(10, 10, w - 20, h - 20)
+      ctx.strokeStyle = 'rgba(255,255,255,0.9)'
+      ctx.lineWidth = 12
+      ctx.strokeRect(12, 12, w - 24, h - 24)
     }
   }
 
@@ -283,50 +304,69 @@ function App() {
   }
 
   const takePhoto = () => {
-    setCountdown('3')
-    setTimeout(() => setCountdown('2'), 1000)
-    setTimeout(() => setCountdown('1'), 2000)
-    setTimeout(() => {
-      setCountdown('Cheese!')
-      setTimeout(() => {
-        const previewCanvas = canvasRef.current
-        const photoCanvas = photoCanvasRef.current
-        if (previewCanvas && photoCanvas) {
-          const ctx = photoCanvas.getContext('2d')
-          if (ctx) {
-            ctx.clearRect(0, 0, photoCanvas.width, photoCanvas.height)
-            ctx.drawImage(previewCanvas, 0, 0)
+    let seconds = 3
+    setCountdown(`Timer: ${seconds}s`)
+
+    const interval = setInterval(() => {
+      seconds -= 1
+      if (seconds > 0) {
+        setCountdown(`Timer: ${seconds}s`)
+      } else {
+        clearInterval(interval)
+        setCountdown('Cheese!')
+        setTimeout(() => {
+          const previewCanvas = canvasRef.current
+          const photoCanvas = photoCanvasRef.current
+          if (previewCanvas && photoCanvas) {
+            const ctx = photoCanvas.getContext('2d')
+            if (ctx) {
+              ctx.clearRect(0, 0, photoCanvas.width, photoCanvas.height)
+              ctx.drawImage(previewCanvas, 0, 0)
+            }
           }
-        }
-        setCountdown('')
-      }, 500)
-    }, 3000)
+          setCountdown('')
+        }, 500)
+      }
+    }, 1000)
   }
 
   const takeMultiplePhotos = (num: number) => {
     setCapturedPhotos([])
     let count = 0
 
-    const take = () => {
-      if (count < num) {
-        setCountdown((num - count).toString())
-        setTimeout(() => {
+    const captureNext = () => {
+      if (count >= num) {
+        setCountdown('')
+        return
+      }
+
+      let seconds = 5
+      setCountdown(`Timer: ${seconds}s`)
+      const interval = setInterval(() => {
+        seconds -= 1
+        if (seconds > 0) {
+          setCountdown(`Timer: ${seconds}s`)
+        } else {
+          clearInterval(interval)
           setCountdown('Cheese!')
           setTimeout(() => {
             const previewCanvas = canvasRef.current
             if (previewCanvas) {
               const dataURL = previewCanvas.toDataURL()
               setCapturedPhotos(prev => [...prev, dataURL])
-              count++
-              setCountdown('')
-              setTimeout(take, 1000)
+              count += 1
+              if (count < num) {
+                captureNext()
+              } else {
+                setCountdown('')
+              }
             }
           }, 500)
-        }, 2000)
-      }
+        }
+      }, 1000)
     }
 
-    take()
+    captureNext()
   }
 
   const reset = () => {
