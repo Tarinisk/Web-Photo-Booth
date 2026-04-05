@@ -96,22 +96,24 @@ function App() {
         ctx.fillText(flower, x, h - 35)
       })
     } else if (frame === 'Sparkle Frame') {
-      ctx.strokeStyle = '#ffffff'
-      ctx.lineWidth = 8
+      ctx.fillStyle = '#ffffff'
+      ctx.fillRect(0, 0, w, h)
+      ctx.strokeStyle = '#ffd700'
+      ctx.lineWidth = 6
       ctx.strokeRect(0, 0, w, h)
-      ctx.fillStyle = 'rgba(255,255,255,0.8)'
       const stars = [
-        { x: 40, y: 40 },
-        { x: w - 40, y: 60 },
-        { x: 60, y: h - 60 },
-        { x: w - 70, y: h - 50 }
+        { x: 30, y: 30 },
+        { x: w - 30, y: 50 },
+        { x: 60, y: h - 50 },
+        { x: w - 70, y: h - 40 }
       ]
+      ctx.fillStyle = '#ffd700'
       stars.forEach(({ x, y }) => {
         ctx.beginPath()
-        ctx.moveTo(x, y - 10)
-        ctx.lineTo(x + 6, y)
-        ctx.lineTo(x, y + 10)
-        ctx.lineTo(x - 6, y)
+        ctx.moveTo(x, y - 8)
+        ctx.lineTo(x + 5, y)
+        ctx.lineTo(x, y + 8)
+        ctx.lineTo(x - 5, y)
         ctx.closePath()
         ctx.fill()
       })
