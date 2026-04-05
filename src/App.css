@@ -164,35 +164,43 @@ header p {
 .frame-option {
   display: flex;
   flex-direction: column;
+  justify-content: center;
   align-items: center;
   cursor: pointer;
-  border: 3px solid transparent;
-  border-radius: 10px;
-  padding: 10px;
-  transition: all 0.3s ease;
-  background: rgba(255, 255, 255, 0.1);
+  border: 2px solid rgba(255, 255, 255, 0.9);
+  border-radius: 16px;
+  padding: 12px;
+  transition: all 0.25s ease;
+  background: rgba(255, 255, 255, 0.28);
+  min-height: 140px;
 }
 
 .frame-option:hover {
-  background: rgba(255, 255, 255, 0.2);
-  border-color: rgba(255, 255, 255, 0.5);
+  background: rgba(255, 255, 255, 0.45);
+  border-color: rgba(255, 255, 255, 1);
+  transform: translateY(-2px);
 }
 
 .frame-option.selected {
   border-color: #ffeb3b;
-  background: rgba(255, 235, 59, 0.2);
+  background: rgba(255, 235, 59, 0.35);
 }
 
 .frame-preview {
   border: 2px solid #fff;
-  border-radius: 5px;
-  margin-bottom: 5px;
+  border-radius: 12px;
+  margin-bottom: 10px;
+  background: #fff;
+  width: 100px;
+  height: 75px;
+  display: block;
 }
 
 .frame-option span {
-  font-size: 12px;
+  font-size: 13px;
   font-weight: bold;
   text-align: center;
+  color: #222;
 }
 
 .home-page {
