@@ -1,5 +1,6 @@
 .app {
   display: flex;
+  flex-wrap: wrap;
   flex-direction: row;
   align-items: flex-start;
   padding: 20px;
@@ -15,6 +16,7 @@
   flex-direction: column;
   align-items: center;
   flex: 1;
+  min-width: 320px;
 }
 
 header {
@@ -141,8 +143,9 @@ header p {
 }
 
 .sidebar {
-  width: 200px;
-  background: rgba(255, 255, 255, 0.1);
+  width: 100%;
+  max-width: 1300px;
+  background: rgba(255, 255, 255, 0.16);
   border-radius: 15px;
   padding: 20px;
   box-shadow: 0 8px 16px rgba(0,0,0,0.2);
@@ -151,14 +154,15 @@ header p {
 .sidebar h2 {
   text-align: center;
   margin-top: 0;
-  font-size: 1.5rem;
+  font-size: 1.7rem;
   text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
 }
 
 .frame-options {
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
+  display: grid;
+  grid-template-columns: repeat(6, minmax(120px, 1fr));
+  gap: 18px;
+  margin-top: 20px;
 }
 
 .frame-option {
@@ -167,17 +171,17 @@ header p {
   justify-content: center;
   align-items: center;
   cursor: pointer;
-  border: 2px solid rgba(255, 255, 255, 0.9);
-  border-radius: 16px;
-  padding: 12px;
+  border: 2px solid rgba(255, 255, 255, 0.95);
+  border-radius: 18px;
+  padding: 10px;
   transition: all 0.25s ease;
-  background: rgba(255, 255, 255, 0.28);
-  min-height: 140px;
+  background: rgba(255, 255, 255, 0.9);
+  min-height: 160px;
 }
 
 .frame-option:hover {
-  background: rgba(255, 255, 255, 0.45);
-  border-color: rgba(255, 255, 255, 1);
+  background: #ffffff;
+  border-color: #ffffff;
   transform: translateY(-2px);
 }
 
@@ -187,20 +191,21 @@ header p {
 }
 
 .frame-preview {
-  border: 2px solid #fff;
-  border-radius: 12px;
+  border: 2px solid #ddd;
+  border-radius: 14px;
   margin-bottom: 10px;
-  background: #fff;
-  width: 100px;
-  height: 75px;
+  background: #ffffff;
+  width: 100%;
+  height: 90px;
   display: block;
 }
 
 .frame-option span {
-  font-size: 13px;
+  font-size: 14px;
   font-weight: bold;
   text-align: center;
   color: #222;
+  margin-top: 4px;
 }
 
 .home-page {
