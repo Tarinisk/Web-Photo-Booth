@@ -6,7 +6,6 @@ type Stage = 'home' | 'options' | 'capture' | 'upload'
 function App() {
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const photoCanvasRef = useRef<HTMLCanvasElement>(null)
-  const framePreviews = useRef<{ [key: string]: HTMLCanvasElement | null }>({})
   const videoRef = useRef<HTMLVideoElement | null>(null)
   const streamRef = useRef<MediaStream | null>(null)
   const [frames] = useState<string[]>([
@@ -211,6 +210,29 @@ function App() {
     applyFrame(ctx, selectedFrame, canvas.width, canvas.height)
   }
 
+  function FramePreview({ frame, selected, onSelect }: { frame: string; selected: boolean; onSelect: () => void }) {
+    const previewCanvasRef = useRef<HTMLCanvasElement | null>(null)
+
+    useEffect(() => {
+      const canvas = previewCanvasRef.current
+      if (!canvas) return
+
+      canvas.width = 100
+      canvas.height = 75
+      canvas.style.width = '100px'
+      canvas.style.height = '75px'
+      const ctx = canvas.getContext('2d')
+      if (ctx) drawFramePreview(ctx, frame, 100, 75)
+    }, [frame])
+
+    return (
+      <div className={`frame-option ${selected ? 'selected' : ''}`} onClick={onSelect}>
+        <canvas ref={previewCanvasRef} className="frame-preview"></canvas>
+        <span>{frame}</span>
+      </div>
+    )
+  }
+
   useEffect(() => {
     let animationId: number | null = null
 
@@ -250,18 +272,6 @@ function App() {
       videoRef.current = null
     }
   }, [stage, selectedFrame])
-
-  useEffect(() => {
-    frames.forEach(frame => {
-      const frameCanvas = framePreviews.current[frame]
-      if (frameCanvas) {
-        const ctx = frameCanvas.getContext('2d')
-        if (ctx) {
-          drawFramePreview(ctx, frame, frameCanvas.width, frameCanvas.height)
-        }
-      }
-    })
-  }, [frames])
 
   useEffect(() => {
     if (stage === 'upload' && uploadedImage) {
@@ -485,19 +495,12 @@ function App() {
         <h2>Choose a Frame</h2>
         <div className="frame-options">
           {frames.map(frame => (
-            <div
+            <FramePreview
               key={frame}
-              className={`frame-option ${selectedFrame === frame ? 'selected' : ''}`}
-              onClick={() => setSelectedFrame(frame)}
-            >
-              <canvas
-                ref={el => { framePreviews.current[frame] = el }}
-                width={100}
-                height={75}
-                className="frame-preview"
-              ></canvas>
-              <span>{frame}</span>
-            </div>
+              frame={frame}
+              selected={selectedFrame === frame}
+              onSelect={() => setSelectedFrame(frame)}
+            />
           ))}
         </div>
       </aside>
